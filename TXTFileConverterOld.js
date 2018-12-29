@@ -32,7 +32,7 @@ function mode(numbers) {
   //clear vars for new iteration
   //let adjustedzzz=(z<10)?'0'+z:z;
 
- fs.readFile(`oct05frl.txt`, 'utf8', async function(err, contents) {    
+ fs.readFile(`apr02frl.txt`, 'utf8', async function(err, contents) {    
  let ThisData = await contents;
  let rows = ThisData.split("\n");
 
@@ -49,7 +49,7 @@ var thisObjectKeys = Object.keys(parsedRows);
 for(let y=0;y<thisObjectKeys.length;y++){
   var thisPlayer = parsedRows[thisObjectKeys[y]];
 
-  if (thisPlayer.title != '' && thisPlayer.title !=undefined) {
+  if (thisPlayer.title != '' && thisPlayer.title !=undefined && thisPlayer.born <2100 && thisPlayer.born !=0) {
   var tmp=[];
   
   tmp.push(parseInt(thisPlayer.grade));
@@ -171,22 +171,24 @@ for(let y=0;y<allAgesArr.length;y++){
 allFideRatings = [];
 currTitle='';
 
-console.log(`const oct05=`+JSON.stringify(averageRatingObject, null, 2)+';');
+console.log(`const apr02=`+JSON.stringify(averageRatingObject, null, 2)+';');
 
  });
 
 
 
+
  function parseRow(row) {
-  const id = row.slice(0, 10).trim();
-  const name = row.slice(10, 44).trim();
+  const id = row.slice(0, 11).trim();
+  const name = row.slice(11, 44).trim();
   const title = row.slice(44, 48).trim();
-  const country = row.slice(48, 53).trim();
-  const grade = row.slice(53, 60).trim();
-  const games = row.slice(60, 64).trim();
-  const born = row.slice(64, 70).trim();
-  const flag = row.slice(70, 72).trim();
- 
+  const country = row.slice(48, 54).trim();
+  const grade = row.slice(54, 64).trim();
+  const games = row.slice(64, 70).trim();
+  var bornrow = row.slice(70, 82).trim();
+  const born = (bornrow.length==10)?bornrow.slice(6,10):'9999';
+  const flag = row.slice(82, 84).trim();
+
   return {
     id,
     name,

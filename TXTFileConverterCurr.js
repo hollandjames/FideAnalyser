@@ -32,7 +32,7 @@ function mode(numbers) {
   //clear vars for new iteration
   //let adjustedzzz=(z<10)?'0'+z:z;
 
- fs.readFile(`oct05frl.txt`, 'utf8', async function(err, contents) {    
+ fs.readFile(`apr06frl.txt`, 'utf8', async function(err, contents) {    
  let ThisData = await contents;
  let rows = ThisData.split("\n");
 
@@ -49,9 +49,8 @@ var thisObjectKeys = Object.keys(parsedRows);
 for(let y=0;y<thisObjectKeys.length;y++){
   var thisPlayer = parsedRows[thisObjectKeys[y]];
 
-  if (thisPlayer.title != '' && thisPlayer.title !=undefined) {
+  if (thisPlayer.title != '' && thisPlayer.title !=undefined && thisPlayer.born !=0  && typeof thisPlayer.born =='number') {
   var tmp=[];
-  
   tmp.push(parseInt(thisPlayer.grade));
   tmp.push(parseInt(thisPlayer.born));
   tmp.push(thisPlayer.title);
@@ -171,7 +170,7 @@ for(let y=0;y<allAgesArr.length;y++){
 allFideRatings = [];
 currTitle='';
 
-console.log(`const oct05=`+JSON.stringify(averageRatingObject, null, 2)+';');
+console.log(`const apr06=`+JSON.stringify(averageRatingObject, null, 2)+';');
 
  });
 
