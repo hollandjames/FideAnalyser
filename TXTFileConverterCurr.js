@@ -29,11 +29,10 @@ function mode(numbers) {
   return modes;
 }
 
-for(let z=6;z<9;z++){
   //clear vars for new iteration
-  let adjustedzzz=(z<10)?'0'+z:z;
+  //let adjustedzzz=(z<10)?'0'+z:z;
 
- fs.readFile(`oct${adjustedzzz}frl.txt`, 'utf8', async function(err, contents) {    
+ fs.readFile(`oct05frl.txt`, 'utf8', async function(err, contents) {    
  let ThisData = await contents;
  let rows = ThisData.split("\n");
 
@@ -67,7 +66,7 @@ for (let y = 0; y < allFideRatings.length; y++) {
 
       currTitle = allFideRatings[y][2];
       //pre 2013 titling system just uses g instead of GM
-switch (currTitle) {
+switch (currTitle.trim()) {
   case 'm':
     currTitle = 'IM';
     break;
@@ -76,6 +75,7 @@ switch (currTitle) {
   break;
   case 'wh':
   case 'h':
+  case 'hg':
   currTitle = currTitle.toUpperCase();
   break;
   default:
@@ -171,11 +171,11 @@ for(let y=0;y<allAgesArr.length;y++){
 allFideRatings = [];
 currTitle='';
 
-console.log(`const oct${adjustedzzz}=`+JSON.stringify(averageRatingObject, null, 2)+';');
+console.log(`const oct05=`+JSON.stringify(averageRatingObject, null, 2)+';');
 
  });
 
-}
+
 
  function parseRow(row) {
   const id = row.slice(0, 10).trim();
