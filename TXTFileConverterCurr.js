@@ -1,3 +1,5 @@
+//this converter is for txt files with date format YYYY
+
 var fs = require('fs');
 const median = require('median');
 var averageRatingObject = {};
@@ -32,7 +34,8 @@ function mode(numbers) {
   //clear vars for new iteration
   //let adjustedzzz=(z<10)?'0'+z:z;
 
- fs.readFile(`apr06frl.txt`, 'utf8', async function(err, contents) {    
+ fs.readFile(`apr06frl.txt`, 'utf8', async function(err, contents) {
+ const currentYear = parseInt('20'+z);    
  let ThisData = await contents;
  let rows = ThisData.split("\n");
 
@@ -49,7 +52,7 @@ var thisObjectKeys = Object.keys(parsedRows);
 for(let y=0;y<thisObjectKeys.length;y++){
   var thisPlayer = parsedRows[thisObjectKeys[y]];
 
-  if (thisPlayer.title != '' && thisPlayer.title !=undefined && thisPlayer.born !=0  && typeof thisPlayer.born =='number') {
+  if (thisPlayer.title != '' && thisPlayer.title !=undefined && !isNaN(parseFloat(thisPlayer.born))) {
   var tmp=[];
   tmp.push(parseInt(thisPlayer.grade));
   tmp.push(parseInt(thisPlayer.born));
@@ -83,14 +86,14 @@ switch (currTitle.trim()) {
 }
 
     
-      let currAge = (2018 - allFideRatings[y][1]);
+      let currAge = (currentYear - allFideRatings[y][1]);
 
 
       if (averageRatingObject[currTitle] == undefined) {
 
           averageRatingObject[currTitle] = {
               count: 1,
-              age: (2018 - allFideRatings[y][1]),
+              age: (currentYear - allFideRatings[y][1]),
               mean: allFideRatings[y][0],
               mode: [allFideRatings[y][0]],
               ratingByAge : {},
@@ -106,7 +109,7 @@ switch (currTitle.trim()) {
       } 
       else {
           averageRatingObject[currTitle].count++;
-          averageRatingObject[currTitle].age += (2018 - allFideRatings[y][1]);
+          averageRatingObject[currTitle].age += (currentYear - allFideRatings[y][1]);
           averageRatingObject[currTitle].mean += allFideRatings[y][0];
           averageRatingObject[currTitle].mode.push(allFideRatings[y][0]);
 
@@ -127,13 +130,7 @@ switch (currTitle.trim()) {
           if(averageRatingObject[currTitle].lowestRating > allFideRatings[y][0]){
               averageRatingObject[currTitle].lowestRating = allFideRatings[y][0];
           }
-
-
-
-
-      }
-
-
+    }
   }
 }
 
@@ -183,7 +180,8 @@ console.log(`const apr06=`+JSON.stringify(averageRatingObject, null, 2)+';');
   const country = row.slice(48, 53).trim();
   const grade = row.slice(53, 60).trim();
   const games = row.slice(60, 64).trim();
-  const born = row.slice(64, 70).trim();
+  let bornrow = row.slice(64, 70).trim();
+  const born = (bornrow.length==4)?bornrow:'';
   const flag = row.slice(70, 72).trim();
  
   return {

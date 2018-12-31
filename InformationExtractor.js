@@ -32,7 +32,8 @@ function mode(numbers) {
 
     return modes;
 }
-
+//need to assign value to z
+const currentYear = parseInt('20'+z);
 const MonthArray = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
 var allFideRatings = [];
 var currTitle;
@@ -65,14 +66,14 @@ function CreateData(allValues) {
 
             currTitle = allFideRatings[y][2];
             let genderOption = allFideRatings[y][3];
-            let currAge = (2018 - allFideRatings[y][1]);
+            let currAge = (currentYear - allFideRatings[y][1]);
 
 
             if (averageRatingObject[currTitle] == undefined) {
 
                 averageRatingObject[currTitle] = {
                     count: 1,
-                    age: (2018 - allFideRatings[y][1]),
+                    age: (currentYear - allFideRatings[y][1]),
                     mean: allFideRatings[y][0],
                     mode: [allFideRatings[y][0]],
                     ratingByAge : {},
@@ -117,7 +118,7 @@ function CreateData(allValues) {
 
             } else {
                 averageRatingObject[currTitle].count++;
-                averageRatingObject[currTitle].age += (2018 - allFideRatings[y][1]);
+                averageRatingObject[currTitle].age += (currentYear - allFideRatings[y][1]);
                 averageRatingObject[currTitle].mean += allFideRatings[y][0];
                 averageRatingObject[currTitle].mode.push(allFideRatings[y][0]);
 
