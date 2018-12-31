@@ -64,7 +64,9 @@ function CreateData(allValues) {
 
         if (allFideRatings[y][2] != '' && !isNaN(parseFloat(allFideRatings[y][1]))) {
 
-            currTitle = allFideRatings[y][2];
+            currTitle = (allFideRatings[y][2]).toUpperCase();
+            if(currTitle=='WF' || currTitle =='WC'){currTitle +='M'}
+            if(currTitle =='WH'|| currTitle=='HM'){currTitle='HON'}
             let genderOption = allFideRatings[y][3];
             let currAge = (currentYear - allFideRatings[y][1]);
 
